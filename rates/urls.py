@@ -1,4 +1,4 @@
-﻿from django.urls import path
+from django.urls import path
 
 from . import views
 
@@ -6,4 +6,5 @@ from . import views
 urlpatterns = [
     path('', views.rate_list, name='rate_list'),
     path('archive/', views.archive, name='archive'),
+    path('api/rates/today/', views.today_rates_api, name='today_rates_api'),
 ]
