@@ -73,6 +73,7 @@
     <nav>
         <a href="{% url 'rate_list' %}" class="{% if active_tab == 'today' %}active{% endif %}">Сьогодні</a>
         <a href="{% url 'archive' %}" class="{% if active_tab == 'archive' %}active{% endif %}">Архів</a>
+        <a href="{% url 'today_rates_api' %}">API</a>
         <a href="{% url 'admin:index' %}">Адмін-панель</a>
     </nav>
 

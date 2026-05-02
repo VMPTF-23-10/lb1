@@ -9,8 +9,13 @@
     <form method="post">
         {% csrf_token %}
         <label>
-            Назва валюти
-            <input type="text" name="name" placeholder="USD" required>
+            Валюта
+            <select name="currency" required>
+                <option value="">Оберіть валюту</option>
+                {% for currency in currencies %}
+                    <option value="{{ currency.id }}">{{ currency.code }} - {{ currency.name }}</option>
+                {% endfor %}
+            </select>
         </label>
 
         <label>
@@ -28,8 +33,12 @@
             <input type="date" name="date" value="{{ today|date:'Y-m-d' }}" required>
         </label>
 
-        <button type="submit">Додати</button>
+        <button type="submit" {% if not currencies %}disabled{% endif %}>Додати</button>
     </form>
+
+    {% if not currencies %}
+        <p>Спочатку додайте валюту в адмін-панелі.</p>
+    {% endif %}
 
     <h2>Таблиця курсів поточного дня</h2>
     <table>
@@ -43,7 +52,7 @@
         <tbody>
             {% for rate in rates %}
                 <tr>
-                    <td>{{ rate.name }}</td>
+                    <td>{{ rate.currency.code }} - {{ rate.currency.name }}</td>
                     <td>{{ rate.buy_rate }}</td>
                     <td>{{ rate.sell_rate }}</td>
                 </tr>
