@@ -1,0 +1,57 @@
+{% extends 'rates/base.html' %}
+
+{% block title %}Курс валют за сьогодні{% endblock %}
+
+{% block content %}
+    <h2>Курси за сьогодні: {{ today }}</h2>
+
+    <h2>Додати курс</h2>
+    <form method="post">
+        {% csrf_token %}
+        <label>
+            Назва валюти
+            <input type="text" name="name" placeholder="USD" required>
+        </label>
+
+        <label>
+            Курс купівлі
+            <input type="number" name="buy_rate" step="0.01" placeholder="40.10" required>
+        </label>
+
+        <label>
+            Курс продажу
+            <input type="number" name="sell_rate" step="0.01" placeholder="40.60" required>
+        </label>
+
+        <label>
+            Дата
+            <input type="date" name="date" value="{{ today|date:'Y-m-d' }}" required>
+        </label>
+
+        <button type="submit">Додати</button>
+    </form>
+
+    <h2>Таблиця курсів поточного дня</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Назва</th>
+                <th>Курс купівлі</th>
+                <th>Курс продажу</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for rate in rates %}
+                <tr>
+                    <td>{{ rate.name }}</td>
+                    <td>{{ rate.buy_rate }}</td>
+                    <td>{{ rate.sell_rate }}</td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="3">Курси ще не додані.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

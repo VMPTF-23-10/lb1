@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Курс валют{% endblock %}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 30px;
+        }
+
+        nav {
+            margin-bottom: 20px;
+        }
+
+        nav a {
+            display: inline-block;
+            padding: 8px 12px;
+            margin-right: 8px;
+            color: #222222;
+            text-decoration: none;
+            border: 1px solid #cccccc;
+        }
+
+        nav a.active {
+            background: #eeeeee;
+            font-weight: bold;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 700px;
+            margin-top: 20px;
+        }
+
+        th,
+        td {
+            border: 1px solid #cccccc;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background: #eeeeee;
+        }
+
+        form {
+            margin-top: 20px;
+            width: 700px;
+        }
+
+        input,
+        select,
+        button {
+            padding: 8px;
+            margin: 5px 0;
+        }
+
+        input,
+        select {
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        button {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Курс валют</h1>
+
+    <nav>
+        <a href="{% url 'rate_list' %}" class="{% if active_tab == 'today' %}active{% endif %}">Сьогодні</a>
+        <a href="{% url 'archive' %}" class="{% if active_tab == 'archive' %}active{% endif %}">Архів</a>
+        <a href="{% url 'admin:index' %}">Адмін-панель</a>
+    </nav>
+
+    {% block content %}{% endblock %}
+</body>
+</html>
